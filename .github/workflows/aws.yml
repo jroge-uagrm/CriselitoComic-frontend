@@ -34,4 +34,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            [dist folder] s3://criselitocomic-frontend-bucket
+            dist s3://criselitocomic-frontend-bucket
