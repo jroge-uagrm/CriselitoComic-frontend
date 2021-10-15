@@ -1,3 +1,4 @@
+name: "S3 deploy"
 version: 0.2
 phases:
   install:
