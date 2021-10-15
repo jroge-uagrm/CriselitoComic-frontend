@@ -3,7 +3,7 @@
 }
 
 .bg-image {
-  background-image: url(D:\CriselitoComics\CriselitoComic-frontend\CriselitoComic-frontend\src\assets\crise22litobanner.jpg);
+  background-image: url(src\assets\crise22litobanner.jpg);
   background-size: cover;
   background-position: center;
 }
