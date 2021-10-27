@@ -1,4 +1,4 @@
-name: S3 Deploy
+name: Features action
 on:
   push:
     branches:
