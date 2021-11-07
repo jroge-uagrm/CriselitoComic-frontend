@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criselito's Comics</title>
 </head>
+
 <body>
     <div class="bg-success p-2 text-white bg-opacity-75">
         <h3>
-            <img src="assets\icon.png" class="img-fluid" 
-             width="80" 
-            height="80">
+            <img src="assets\icon.png" class="img-fluid" width="80" height="80">
             Criselito's Comics
         </h3>
     </div>
     <p>
 
     </p>
-    <div class = "row">
+    <div class="row">
         <div class="col">
             <h1> My uploaded documents</h1>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success">
-                Upload new document
-            </button>
+            <input class="btn btn-success" type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)"
+                style="display:none;">
+            <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+            <br><br>
+            <span class="upload" *ngIf="progress > 0">
+                {{progress}}%
+            </span>
+            <span class="upload" *ngIf="message">
+                {{message}}
+            </span>
+            <a target="_blank" href="{{fileUrl}}">View file</a>
         </div>
     </div>
-    
-    <div class="container "  >
-        
-      
-        
+
+    <div class="container ">
+
+
+
     </div>
 </body>
+
 </html>
