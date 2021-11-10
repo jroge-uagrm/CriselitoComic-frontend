@@ -11,7 +11,8 @@ export class TestComponent implements OnInit {
   public activity!: string;
   constructor(private api: GetApiService){
     api.apiCall().subscribe((data:any)=>{
-      this.activity = JSON.stringify(data, ['activity']);
+      this.activity = data.activity;
+      //this.activity = JSON.stringify(data, ['activity']);
     })
   }
   ngOnInit(): void {
