@@ -12,10 +12,16 @@ export class TestComponent implements OnInit {
   constructor(private api: GetApiService){
   }
   ngOnInit(): void {
+    this.api.createComic("Homero", "Testing Post").subscribe((data:any)=>{
+      console.log(data);
+      this.activity = data.name;
+    })
+    /*
     this.api.apiCall().subscribe((data:any)=>{
       this.activity = data.activity;
-      //this.activity = JSON.stringify(data, ['activity']);
-    })
+
+      
+    })*/
   }
   
   
