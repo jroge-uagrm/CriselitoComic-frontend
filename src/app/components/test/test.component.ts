@@ -13,7 +13,8 @@ export class TestComponent implements OnInit {
   }
   ngOnInit(): void {
     this.api.createComic("Homero", "Testing Post").subscribe((data:any)=>{
-      this.activity = data.activity;
+      console.log(data);
+      this.activity = data.name;
     })
     /*
     this.api.apiCall().subscribe((data:any)=>{
