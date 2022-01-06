@@ -9,21 +9,48 @@ import { GetApiService } from 'src/app/get-api.service';
 export class TestComponent implements OnInit {
 
   public activity!: string;
-  constructor(private api: GetApiService){
-  }
-  ngOnInit(): void {
-    this.api.createComic("Homero", "Testing Post").subscribe((data:any)=>{
-      console.log(data);
-      this.activity = data.name;
-    })
-    /*
-    this.api.apiCall().subscribe((data:any)=>{
-      this.activity = data.activity;
+  name!: string;
+  description!: string;
+  uploaded!: boolean;
 
-      
-    })*/
+  constructor(private api: GetApiService) {
+    this.uploaded = false;
   }
-  
-  
+
+  shortLink: string = "";
+  loading: boolean = false;
+  file!: File;
+
+  ngOnInit(): void {
+  }
+
+  onChange(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  onUpload() {
+    this.loading = !this.loading;
+    this.api.upload(this.file, this.name, this.description).subscribe(
+      (event: any) => {
+        if (typeof (event) === 'object') {
+          this.shortLink = event.link;
+          this.loading = false;
+        }
+        console.log(event);
+        this.shortLink = event.url;
+        this.uploaded = true;
+      }
+    );
+    this.api.iaupload(this.shortLink).subscribe(
+      (event: any) => {
+        if (typeof (event) === 'object') {
+          this.shortLink = event.link;
+          this.loading = false;
+        }
+        console.log(event);
+      }
+    );
+  }
+
 
 }

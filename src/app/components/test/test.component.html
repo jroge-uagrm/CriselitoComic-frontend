@@ -1,5 +1,20 @@
 <h1>ACTIVITY</h1>
 <h3>
-    {{activity}}
-    <app-create-comic></app-create-comic>
+    <div class="text-center">
+        <label for="">Nombre</label>
+        <input type="text" [(ngModel)]="name" name="name">
+        <label for="">Descripcion</label>
+        <input type="text" [(ngModel)]="description" name="description">
+        <input class="form-control" type="file" (change)="onChange($event)">
+
+        <button (click)="onUpload()" class="btn btn-success">
+            Upload
+        </button>
+    </div>
+
+    <!-- Shareable short link of  uoloaded file -->
+    <div class="container text-center jumbotron" *ngIf="uploaded">
+        <h2> Visit Here</h2>
+        <a target="_blank" href="{{shortLink}}">{{shortLink}}</a>
+    </div>
 </h3>
