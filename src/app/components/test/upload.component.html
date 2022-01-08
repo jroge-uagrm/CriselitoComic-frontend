@@ -11,7 +11,7 @@
             el archivo no debe superar los 5 MB
         </p>
 
-        <form>
+        <form [formGroup]="documentForm" novalidate>
             <div class="row justify-content-center mt-3">
                 <div class="col-2">
                     <label class="col-form-label">
@@ -29,30 +29,37 @@
                     </label>
                 </div>
                 <div class="col-4">
-                    <input name="name" id="name" type="text" class="form-control" [(ngModel)]="document.name"
-                        formControlName="name" required>
-                    <div *ngIf="name!.invalid && (name!.dirty || name!.touched)" class="alert alert-danger">
-                        <div *ngIf="name!.errors?.['required']">
-                            Name is required.
+                    <input formControlName="name" type="text" class="form-control">
+                    <div *ngIf="!nameIsValid()" class="text-danger">
+                        <div *ngIf="documentForm.controls['name'].errors!.required">
+                            Nombre requerido
+                        </div>
+                        <div *ngIf="documentForm.controls['name'].errors!.minlength">
+                            Minimo 3 caracteres
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center mt-3">
-                    <div class="col-2">
-                        <label class="col-form-label">
-                            Descripción
-                        </label>
-                    </div>
-                    <div class="col-4">
-                        <textarea [(ngModel)]="document.description" class="form-control"></textarea>
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-2">
+                    <label class="col-form-label">
+                        Descripción
+                    </label>
+                </div>
+                <div class="col-4">
+                    <textarea formControlName="description" class="form-control"></textarea>
+                    <div *ngIf="!descriptionIsValid()" class="text-danger">
+                        <div *ngIf="documentForm.controls['description'].errors!.required">
+                            Descripción requerida
+                        </div>
                     </div>
                 </div>
-                <div class="row justify-content-center mt-3">
-                    <div class="col-4">
-                        <button type="submit" (click)="onUpload()" class="btn btn-success form-control">
-                            Traducir
-                        </button>
-                    </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-4">
+                    <button type="submit" (click)="onUpload()" class="btn btn-success form-control">
+                        Traducir
+                    </button>
                 </div>
             </div>
         </form>
