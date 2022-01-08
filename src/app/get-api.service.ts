@@ -1,20 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class GetApiService {
 
-  constructor(
-    private http:HttpClient
-  ) { }
-  apiCall(){
-    return this.http.get('https://www.boredapi.com/api/activity');
+  baseApiUrl = "https://criselito-comic-backend.herokuapp.com/api/upload";
+
+  constructor(private http: HttpClient) { }
+
+  upload(file: any, name: string, description: string): Observable<any> {
+
+    const formData = new FormData();
+
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append("document", file, file.name);
+
+    return this.http.post(this.baseApiUrl, formData)
   }
-  createComic(comicName: string, comicDescription: string){
-    return this.http.post('https://criselitocomic-backend.azurewebsites.net/api/comics',{
-      name: comicName,
-      description: comicDescription
-    })
+  iaupload(url: string): Observable<any> {
+
+    const formData = new FormData();
+
+    formData.append("language", 'eng');
+    formData.append("isOverlayRequired", 'false');
+    formData.append("url", url);
+    formData.append("iscreatesearchablepdf", 'false');
+    formData.append("issearchablepdfhidetextlayer", 'false');
+    formData.append("filetype", 'pdf');
+    // formData.append("scale", 'true');
+    // formData.append("detectOrientation", 'false');
+
+    let httpHeaders = new HttpHeaders();
+    httpHeaders = httpHeaders.append('apikey', 'deef01629988957');
+    // httpHeaders.append('apikey', 'helloworld');
+
+    console.log(httpHeaders);
+
+
+    return this.http.post('https://api.ocr.space/parse/image', formData, { headers: httpHeaders });
   }
 }
