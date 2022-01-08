@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GetApiService } from 'src/app/get-api.service';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  templateUrl: './upload.component.html',
+  styleUrls: ['./upload.component.css']
 })
-export class TestComponent implements OnInit {
+export class UploadComponent implements OnInit {
 
   public activity!: string;
   name!: string;
