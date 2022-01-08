@@ -1,0 +1,65 @@
+<div class="card text-center h-100 border-white">
+    <div class="card-body">
+        <h2 class="d-flex">
+            Traducir PDF
+        </h2>
+        <hr class="col-10 my-4">
+        <h5 class="card-title">
+            Seleccione el archivo a traducir
+        </h5>
+        <p class="card-text">
+            el archivo no debe superar los 5 MB
+        </p>
+
+        <form>
+            <div class="row justify-content-center mt-3">
+                <div class="col-2">
+                    <label class="col-form-label">
+                        Archivo
+                    </label>
+                </div>
+                <div class="col-4">
+                    <input requried type="file" class="form-control" (change)="onChange($event)">
+                </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-2">
+                    <label class="col-form-label">
+                        Nombre
+                    </label>
+                </div>
+                <div class="col-4">
+                    <input name="name" id="name" type="text" class="form-control" [(ngModel)]="document.name"
+                        formControlName="name" required>
+                    <div *ngIf="name!.invalid && (name!.dirty || name!.touched)" class="alert alert-danger">
+                        <div *ngIf="name!.errors?.['required']">
+                            Name is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-2">
+                        <label class="col-form-label">
+                            Descripción
+                        </label>
+                    </div>
+                    <div class="col-4">
+                        <textarea [(ngModel)]="document.description" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-4">
+                        <button type="submit" (click)="onUpload()" class="btn btn-success form-control">
+                            Traducir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Shareable short link of  uoloaded file -->
+    <div class="container text-center jumbotron" *ngIf="uploaded">
+        <h2> Visit Here</h2>
+        <a target="_blank" href="{{shortLink}}">{{shortLink}}</a>
+    </div>
