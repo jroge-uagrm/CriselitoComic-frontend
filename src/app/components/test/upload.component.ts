@@ -18,16 +18,15 @@ export class UploadComponent {
   file!: File;
 
   constructor(
-    private api: GetApiService,
-    private formBuilder: FormBuilder) {
+    private api: GetApiService) {
     this.uploaded = false;
     this.document = {
       name: "",
       description: "",
     };
-    this.documentForm = this.formBuilder.group({
-      name: [this.document.name, [Validators.required, Validators.minLength(3)]],
-      description: [this.document.description, Validators.required],
+    this.documentForm = new FormGroup({
+      name: new FormControl(this.document.name, [Validators.required, Validators.minLength(3)]),
+      description: new FormControl(this.document.description, Validators.required),
     });
   }
 
@@ -43,9 +42,17 @@ export class UploadComponent {
     this.file = event.target.files[0];
   }
 
+  get name(): string {
+    return this.documentForm.get('name')!.value;
+  }
+
+  get description(): string {
+    return this.documentForm.get('description')!.value;
+  }
+
   onUpload() {
     if (this.documentForm.valid) {
-      this.api.upload(this.file, this.document.name, this.document.description).subscribe(
+      this.api.upload(this.file, this.name, this.description).subscribe(
         (event: any) => {
           if (typeof (event) === 'object') {
             this.shortLink = event.link;
