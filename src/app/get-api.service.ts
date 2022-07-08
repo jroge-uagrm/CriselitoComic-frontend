@@ -34,4 +34,20 @@ export class GetApiService {
     // httpHeaders.append('apikey', 'helloworld');
     return this.http.post('https://api.ocr.space/parse/image', formData, { headers: httpHeaders });
   }
+  
+  iatranslate(text:string):Observable<any>{
+    console.log(text)
+    const encodedParams = new URLSearchParams();
+    encodedParams.append("text", text);
+    encodedParams.append("to", "es");
+    encodedParams.append("from", "en");
+
+    console.log(text)
+    let httpHeaders = new HttpHeaders();
+    httpHeaders = httpHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+    httpHeaders = httpHeaders.append('X-RapidAPI-Host','nlp-translation.p.rapidapi.com')
+    httpHeaders = httpHeaders.append('X-RapidAPI-Key','db24276902msh71466a572b91ea1p1af87fjsnac9b5e280fd1')
+    return this.http.post('https://nlp-translation.p.rapidapi.com/v1/translate', encodedParams, { headers: httpHeaders });
+  }
+
 }
