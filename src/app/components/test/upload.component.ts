@@ -15,6 +15,7 @@ export class UploadComponent {
   uploaded!: boolean;
   documentForm!: FormGroup;
   shortLink: string = "";
+  textToTraduce: string="";
   file!: File;
 
   constructor(
@@ -50,7 +51,7 @@ export class UploadComponent {
     return this.documentForm.get('description')!.value;
   }
 
-  onUpload() {
+  onUpload(){
     if (this.documentForm.valid) {
       this.api.upload(this.file, this.name, this.description).subscribe(
         (event: any) => {
@@ -59,15 +60,29 @@ export class UploadComponent {
           }
           this.shortLink = event.url;
           this.uploaded = true;
+          console.log(this.shortLink)
         }
       );
-      this.api.iaupload(this.shortLink).subscribe(
-        (event: any) => {
-          if (typeof (event) === 'object') {
-            this.shortLink = event.link;
+      setTimeout(()=>{
+        this.api.iaupload(this.shortLink).subscribe(
+          (event: any) => {
+            if (typeof (event) === 'object') {
+              this.shortLink = event.link;
+            }
+            console.log(this.shortLink)
+            console.log(event.ParsedResults)
+            this.textToTraduce=event.ParsedResults[0].ParsedText;
+            console.log(this.textToTraduce)  
           }
-        }
-      );
+        );
+        setTimeout(()=>{
+          this.api.iatranslate(this.textToTraduce).subscribe(
+            (event:any)=>{
+              console.log(event);
+            }
+          )  
+        },2000)
+      },1500) 
     }
   }
 }
