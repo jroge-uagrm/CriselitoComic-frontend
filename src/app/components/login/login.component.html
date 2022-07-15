@@ -11,11 +11,11 @@
               <!-- Sign In Form -->
               <form>
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <input [(ngModel)]="user.email"  name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                   <label for="floatingInput">Email </label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                   <label for="floatingPassword">Contraseña</label>
                 </div>
 
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="d-grid">
-                  <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Ingresar</button>
+                  <button (click)="login()" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Ingresar</button>
                   <div class="text-center">
                     <a class="small" href="#">¿Olvidaste la contraseña?</a>
                   </div>
