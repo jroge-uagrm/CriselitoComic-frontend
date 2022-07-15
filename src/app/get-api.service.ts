@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from './models/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,6 +49,10 @@ export class GetApiService {
     httpHeaders = httpHeaders.append('X-RapidAPI-Host','nlp-translation.p.rapidapi.com')
     httpHeaders = httpHeaders.append('X-RapidAPI-Key','db24276902msh71466a572b91ea1p1af87fjsnac9b5e280fd1')
     return this.http.post('https://nlp-translation.p.rapidapi.com/v1/translate', encodedParams, { headers: httpHeaders });
+  }
+
+  login(user:User):Observable<any>{
+    return this.http.post('http://localhost:8000/api/login',user)
   }
 
 }
